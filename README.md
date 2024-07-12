@@ -13,16 +13,15 @@
 - Run Powershell
 - Run Bash
 
-## Update Linux Packages and Install all dependencies
+## Update and Install all dependencies for Linux
 ``` bash
 cd ../../mnt/c && \
 git clone https://github.com/Evilazaro/dotnetCustomDeveloperMachineConfiguration.git devMachine && \
 cd devMachine\src\bash && \
 sudo ./updateDependencies.sh
 ```
-
-
-```` powershell
+## Update and Install all dependencies for Windows
+``` powershell
 cd src\powershell
 .\updateDependencies.ps1
-````
+```
