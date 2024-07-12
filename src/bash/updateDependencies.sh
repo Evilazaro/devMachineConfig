@@ -22,8 +22,6 @@ function updateDependencies
     installAzureCLI
 
     installGitHubCLI
-
-    installVSCode
 }
 
 # Function to check the package manager and update packages
@@ -62,7 +60,7 @@ install_or_update_dotnet() {
   sudo apt-get install -y dotnet-sdk-8.0
 
   echo "Updating dotnet workloads..."
-  dotnet workload update
+  sudo dotnet workload update
   echo "dotnet workloads have been updated."
 }
 
@@ -76,7 +74,7 @@ installAzureCLI() {
 installGitHubCLI
 {
     echo "Installing GitHub CLI..."
-    (type -p wget >/dev/null || (sudo apt update && sudo apt-get install wget -y)) \
+    sudo apt update && sudo apt-get install wget -y \
     && sudo mkdir -p -m 755 /etc/apt/keyrings \
     && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
     && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
@@ -88,21 +86,6 @@ installGitHubCLI
     sudo apt install gh
 
     echo "GitHub CLI has been installed sucssessfuly"
-}
-
-installVSCode
-{
-    echo "Installing Visual Studio Code..."
-    sudo apt-get install wget gpg
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
-    rm -f packages.microsoft.gpg
-
-    sudo apt-get update -y
-    sudo apt-get install -y wget apt-transport-https
-    sudo apt install code
-    echo "Visual Studio Code installation is complete."
 }
 
 updateDependencies

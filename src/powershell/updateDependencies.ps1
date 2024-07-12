@@ -38,6 +38,8 @@ function update-dependencies {
     UpdateDotNetWorkloads
 
     Write-Log -Message "Dotnet workload update process completed."
+
+    InstallVSCodeExtensions
 }
 
 # Function to display messages with different severity levels
@@ -128,6 +130,32 @@ function UpdateDotNetWorkloads {
 
     } catch {
         Write-Log -Message "Failed to update Dotnet workloads: $_" -Level "ERROR"
+    }
+}
+
+function InstallVSCodeExtensions{
+    try {
+        Write-Log -Message "Installing VSCode extensions..."
+        code --install-extension ms-vscode-remote.remote-wsl --force
+        code --install-extension ms-vscode.PowerShell --force
+        code --install-extension ms-vscode.vscode-node-azure-pack --force
+        code --install-extension GitHub.copilot --force
+        code --install-extension GitHub.vscode-pull-request-github --force
+        code --install-extension GitHub.copilot-chat --force
+        code --install-extension GitHub.remotehub --force
+        code --install-extension GitHub.vscode-github-actions --force
+        code --install-extension eamodio.gitlens-insiders --force	
+        code --install-extension ms-vscode.azure-repos --force
+        code --install-extension ms-azure-devops.azure-pipelines --force
+        code --install-extension ms-azuretools.vscode-docker --force	
+        code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
+        code --install-extension ms-kubernetes-tools.vscode-aks-tools --force
+        code --install-extension ms-azuretools.vscode-azurecontainerapps --force
+        code --install-extension ms-azuretools.vscode-azurefunctions --force
+        code --install-extension ms-azuretools.vscode-apimanagement	--force
+        Write-Log -Message "VSCode extensions have been installed successfully."
+    } catch {
+        Write-Log -Message "Failed to install VSCode extensions: $_" -Level "ERROR"
     }
 }
 

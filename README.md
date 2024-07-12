@@ -12,5 +12,19 @@
 - Clone this repo
 - Run Powershell
 - Run Bash
-- Configure VS Code
 - Configure Visual Studio
+
+
+``` bash
+cd src\bash
+sudo apt-get update && \
+     apt-get upgrade -y && \
+     apt-get install -y dos2linux && \
+     dos2unix *.sh && \
+     ./updateDependencies.sh
+````
+
+```` powershell
+cd src\powershell
+.\updateDependencies.ps1
+````
