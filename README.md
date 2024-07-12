@@ -7,22 +7,20 @@
 - Reboot the computer
 - Install DevHome
 - Run DevHome config file
+- Configure Visual Studio
 - Reboot computer
 - Configure Docker
-- Clone this repo
 - Run Powershell
 - Run Bash
-- Configure Visual Studio
 
-
+## Update Linux Packages and Install all dependencies
 ``` bash
-cd src\bash
-sudo apt-get update && \
-     apt-get upgrade -y && \
-     apt-get install -y dos2linux && \
-     dos2unix *.sh && \
-     ./updateDependencies.sh
-````
+cd ../../mnt/c && \
+git clone https://github.com/Evilazaro/dotnetCustomDeveloperMachineConfiguration.git devMachine && \
+cd devMachine\src\bash && \
+sudo ./updateDependencies.sh
+```
+
 
 ```` powershell
 cd src\powershell
