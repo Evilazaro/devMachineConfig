@@ -14,13 +14,13 @@ properties:
       source: winget
     id: Microsoft.DotNet.SDK.8
   - resource: Microsoft.WinGet.DSC/WinGetPackage
-  directives:
-    description: Installing Dotnet Runtime 8
-    allowPrerelease: true
-    securityContext: current
-  settings:
-    id: "Microsoft.DotNet.Runtime.8"
-    source: winget
+    directives:
+      description: Installing Dotnet Runtime 8
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.DotNet.Runtime.8"
+      source: winget
     id: Microsoft.DotNet.Runtime.8
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
