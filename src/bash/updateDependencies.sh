@@ -8,14 +8,9 @@ function updateDependencies
 
     echo "All packages have been updated to the latest versions."
 
-    # Check if .NET SDK is already installed and update if necessary
-    if command -v dotnet &> /dev/null; then
-      echo ".NET SDK is already installed. Checking for updates..."
-      install_or_update_dotnet
-    else
-      echo ".NET SDK is not installed. Installing the latest version..."
-      install_or_update_dotnet
-    fi
+    echo "Installing or updating .NET SDK 8.0..."
+
+    install_or_update_dotnet
 
     echo ".NET SDK 8.0 installation or update is complete."
 
