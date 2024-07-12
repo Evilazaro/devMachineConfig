@@ -6,25 +6,25 @@ properties:
   resources:
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing Microsoft.Office
+      description: Installing Dotnet SDK 8
       allowPrerelease: true
       securityContext: current
     settings:
-      id: "Microsoft.Office"
+      id: "Microsoft.DotNet.SDK.8"
       source: winget
-    id: Microsoft.Office
+    id: Microsoft.DotNet.SDK.8
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+  directives:
+    description: Installing Dotnet Runtime 8
+    allowPrerelease: true
+    securityContext: current
+  settings:
+    id: "Microsoft.DotNet.Runtime.8"
+    source: winget
+    id: Microsoft.DotNet.Runtime.8
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing 9PDXGNCFSCZV
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "9PDXGNCFSCZV"
-      source: winget
-    id: 9PDXGNCFSCZV
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
-      description: Installing 9MZ1SNWT0N5D
+      description: Installing PowerShell
       allowPrerelease: true
       securityContext: current
     settings:
@@ -33,13 +33,22 @@ properties:
     id: 9MZ1SNWT0N5D
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing XP89DCGQ3K6VLD
+      description: Installing Microsoft.AzureCLI
       allowPrerelease: true
       securityContext: current
     settings:
-      id: "XP89DCGQ3K6VLD"
-      source: msstore
-    id: XP89DCGQ3K6VLD
+      id: "Microsoft.AzureCLI"
+      source: winget
+    id: Microsoft.AzureCLI
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
+      description: Installing Microsoft.Azd
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.Azd"
+      source: winget
+    id: Microsoft.Azd
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
       description: Installing Git.Git
@@ -69,24 +78,6 @@ properties:
     id: GitHub.GitHubDesktop
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing Microsoft.AzureCLI
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "Microsoft.AzureCLI"
-      source: winget
-    id: Microsoft.AzureCLI
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
-      description: Installing Microsoft.Azd
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "Microsoft.Azd"
-      source: winget
-    id: Microsoft.Azd
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
       description: Installing Microsoft.VisualStudioCode
       allowPrerelease: true
       securityContext: current
@@ -94,6 +85,15 @@ properties:
       id: "Microsoft.VisualStudioCode"
       source: winget
     id: Microsoft.VisualStudioCode
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
+      description: Installing Microsoft.VisualStudio.2022.Enterprise
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.VisualStudio.2022.Enterprise"
+      source: winget
+    id: Microsoft.VisualStudio.2022.Enterprise
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
       description: Installing Postman.Postman
@@ -105,15 +105,6 @@ properties:
     id: Postman.Postman
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing Docker.DockerDesktop
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "Docker.DockerDesktop"
-      source: winget
-    id: Docker.DockerDesktop
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
       description: Installing TechSmith.Snagit.2024
       allowPrerelease: true
       securityContext: current
@@ -123,20 +114,29 @@ properties:
     id: TechSmith.Snagit.2024
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing 9NKSQGP7F2NH
+      description: Installing Docker.DockerDesktop
       allowPrerelease: true
       securityContext: current
     settings:
-      id: "9NKSQGP7F2NH"
-      source: msstore
-    id: 9NKSQGP7F2NH
+      id: "Docker.DockerDesktop"
+      source: winget
+    id: Docker.DockerDesktop
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing Microsoft.VisualStudio.2022.Enterprise
+      description: Installing Dev Home Azure Extension
       allowPrerelease: true
       securityContext: current
     settings:
-      id: "Microsoft.VisualStudio.2022.Enterprise"
-      source: winget
-    id: Microsoft.VisualStudio.2022.Enterprise
+      id: "9MV8F79FGXTR"
+      source: msstore
+    id: 9MV8F79FGXTR
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
+      description: Installing Dev Home GitHub Extension
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "9NZCC27PR6N6"
+      source: msstore
+    id: 9NZCC27PR6N6
   configurationVersion: 0.2.0
