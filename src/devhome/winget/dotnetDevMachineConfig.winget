@@ -51,6 +51,24 @@ properties:
     id: Microsoft.Azd
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing OpenJS.NodeJS
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "OpenJS.NodeJS"
+      source: winget
+    id: OpenJS.NodeJS
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
+      description: Installing Microsoft.Azure.FunctionsCoreTools
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.Azure.FunctionsCoreTools"
+      source: winget
+    id: Microsoft.Azure.FunctionsCoreTools
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing Git.Git
       allowPrerelease: true
       securityContext: current
