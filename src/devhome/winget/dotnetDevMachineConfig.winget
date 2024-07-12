@@ -6,6 +6,15 @@ properties:
   resources:
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing Microsoft.Office
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.Office"
+      source: winget
+    id: Microsoft.Office
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing 9PDXGNCFSCZV
       allowPrerelease: true
       securityContext: current
@@ -130,13 +139,4 @@ properties:
       id: "Microsoft.VisualStudio.2022.Enterprise"
       source: winget
     id: Microsoft.VisualStudio.2022.Enterprise
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
-      description: Installing Microsoft.Office
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "Microsoft.Office"
-      source: winget
-    id: Microsoft.Office
   configurationVersion: 0.2.0
