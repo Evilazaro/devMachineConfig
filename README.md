@@ -17,7 +17,7 @@
 ``` bash
 cd ../../mnt/c && \
 git clone https://github.com/Evilazaro/dotnetCustomDeveloperMachineConfiguration.git devMachine && \
-cd devMachine\src\bash && \
+cd devMachine/src/bash && \
 sudo ./updateDependencies.sh
 ```
 ## Update and Install all dependencies for Windows
