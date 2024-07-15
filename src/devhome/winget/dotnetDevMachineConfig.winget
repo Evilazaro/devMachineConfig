@@ -6,6 +6,15 @@ properties:
   resources:
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing Microsoft.AppInstaller
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.AppInstaller"
+      source: winget
+    id: Microsoft.AppInstaller
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing Dotnet SDK 8
       allowPrerelease: true
       securityContext: current
