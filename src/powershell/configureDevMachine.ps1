@@ -1,3 +1,5 @@
+Set-ExecutionPolicy Bypass -Scope Process -Force; 
+
 function InstallWinGet {
 
     # Set PSGallery installation policy to trusted
@@ -120,8 +122,45 @@ function InstallVSCodeExtensions {
     }
 }
 
+function installWindowsupdates{
+    Write-Host "Installing Windows updates..."
+    try {
+        # Install the PSWindowsUpdate module
+        Install-Module -Name PSWindowsUpdate -Force -SkipPublisherCheck
+    
+        # Import the module
+        Import-Module PSWindowsUpdate
+    
+        # Check for updates
+        $updates = Get-WindowsUpdate
+    
+        # Install all available updates
+        if ($updates) {
+            Install-WindowsUpdate -AcceptAll -AutoReboot -Verbose | Out-File "C:\Logs\WindowsUpdateLog.txt"
+            Write-Host "Updates installed successfully. System will reboot if required."
+        } else {
+            Write-Host "No updates available."
+        }
+    } catch {
+        Write-Error "An error occurred: $_"
+    }
+    
+    Write-Host "Windows updates have been installed successfully."
+
+}
+
+function installWSL
+{
+    Write-Host "Installing WSL..."
+    # Enable WSL
+    wsl --install -d Ubuntu
+    Write-Host "WSL has been installed successfully."
+}
+
 function configureDevMachine{
 
+    installWSL
+    installWindowsupdates
     InstallWinGet
     installAllToolsAndApps
     InstallVSCodeExtensions
