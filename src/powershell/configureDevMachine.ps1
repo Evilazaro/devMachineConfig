@@ -28,7 +28,7 @@ function InstallWinGet {
 
     $desktopAppInstallerPackage = Get-AppxPackage -Name "Microsoft.DesktopAppInstaller"
 
-    if (!($desktopAppInstallerPackage)) {
+    if (($desktopAppInstallerPackage)) {
         # install Microsoft.DesktopAppInstaller
         try {
             Write-Host "Installing Microsoft.DesktopAppInstaller"
@@ -76,26 +76,26 @@ function runWinGet{
     )
 
     Write-Host $message
-    winget isntall -e --id $id --source $source --accept-package-agreements --accept-source-agreements --silent
+    winget install -e --id $id --source $source --accept-package-agreements --accept-source-agreements --silent
 
 }
 
 function UpdateDotNetWorkloads {
     try {
 
-        Write-Log -Message "Updating Dotnet workloads..."
+        Write-Host "Updating Dotnet workloads..."
         dotnet workload update
-        Write-Log -Message "Workloads have been completed successfully."
+        Write-Host "Workloads have been completed successfully."
 
     }
     catch {
-        Write-Log -Message "Failed to update Dotnet workloads: $_" -Level "ERROR"
+        Write-Host "Failed to update Dotnet workloads: $_"  -Level "ERROR"
     }
 }
 
 function InstallVSCodeExtensions {
     try {
-        Write-Log -Message "Installing VSCode extensions..."
+        Write-Host "Installing VSCode extensions..."
         code --install-extension ms-vscode-remote.remote-wsl --force
         code --install-extension ms-vscode.PowerShell --force
         code --install-extension ms-vscode.vscode-node-azure-pack --force
@@ -113,10 +113,10 @@ function InstallVSCodeExtensions {
         code --install-extension ms-azuretools.vscode-azurecontainerapps --force
         code --install-extension ms-azuretools.vscode-azurefunctions --force
         code --install-extension ms-azuretools.vscode-apimanagement	--force
-        Write-Log -Message "VSCode extensions have been installed successfully."
+        Write-Host "VSCode extensions have been installed successfully."
     }
     catch {
-        Write-Log -Message "Failed to install VSCode extensions: $_" -Level "ERROR"
+        Write-Host "Failed to install VSCode extensions: $_" -Level "ERROR"
     }
 }
 
