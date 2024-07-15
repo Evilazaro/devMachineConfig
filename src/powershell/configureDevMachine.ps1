@@ -101,9 +101,16 @@ function InstallWinGet {
 
 }
 
-function installAllToolsAndApps {
+
+function installWSL
+{
     runWinGet -id "Microsoft.WSL" -message "Installing WSL"
     runWinGet -id "9PDXGNCFSCZV" -message "Installing Ubuntu"
+}
+
+
+function installAllToolsAndApps {
+
     runWinGet -id "Microsoft.PowerToys" -message "Installing PowerToys"
     runWinGet -id "Microsoft.DotNet.SDK.8" -message "Installing .NET 8 SDK"
     runWinGet -id "Microsoft.DotNet.Runtime.8" -message "Installing .NET 8 Runtime"
@@ -271,9 +278,9 @@ function InstallPS7 {
 
 function configureDevMachine {
 
-    #installWSL
     InstallPS7
     InstallWinGet
+    installWSL
     installAllToolsAndApps
     InstallVSCodeExtensions
     UpdateDotNetWorkloads
