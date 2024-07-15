@@ -5,6 +5,38 @@ function InstallWinGet {
     # Set PSGallery installation policy to trusted
     Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
     pwsh.exe -MTA -Command "Set-PSRepository -Name PSGallery -InstallationPolicy Trusted"
+
+    # ensure NuGet provider is installed
+    if (!(Get-PackageProvider | Where-Object { $_.Name -eq "NuGet" -and $_.Version -gt "2.8.5.201" })) {
+        Write-Host "Installing NuGet provider"
+        Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope "AllUsers"
+        Write-Host "Done Installing NuGet provider"
+    }
+    else {
+        Write-Host "NuGet provider is already installed"
+    }
+
+    $msUiXamlPackage = Get-AppxPackage -Name "Microsoft.UI.Xaml.2.8" | Where-Object { $_.Version -ge "8.2310.30001.0" }
+    if (!($msUiXamlPackage)) {
+        # instal Microsoft.UI.Xaml
+        try {
+            Write-Host "Installing Microsoft.UI.Xaml"
+            $architecture = "x64"
+            if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") {
+                $architecture = "arm64"
+            }
+            $MsUiXaml = "$env:TEMP\$([System.IO.Path]::GetRandomFileName())-Microsoft.UI.Xaml.2.8.6"
+            $MsUiXamlZip = "$($MsUiXaml).zip"
+            Invoke-WebRequest -Uri "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -OutFile $MsUiXamlZip
+            Expand-Archive $MsUiXamlZip -DestinationPath $MsUiXaml
+            Add-AppxPackage -Path "$($MsUiXaml)\tools\AppX\$($architecture)\Release\Microsoft.UI.Xaml.2.8.appx" -ForceApplicationShutdown
+            Write-Host "Done Installing Microsoft.UI.Xaml"
+        }
+        catch {
+            Write-Host "Failed to install Microsoft.UI.Xaml"
+            Write-Error $_
+        }
+    }
     
     # check if the Microsoft.Winget.Client module is installed
     if (!(Get-Module -ListAvailable -Name Microsoft.Winget.Client)) {
@@ -68,11 +100,11 @@ function installAllToolsAndApps {
     runwinget -id "Docker.DockerDesktop" -message "Installing Docker Desktop"
 }
 
-function runWinGet{
+function runWinGet {
     param (
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$id,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$message,
         [string]$source = "winget"
     )
@@ -122,7 +154,7 @@ function InstallVSCodeExtensions {
     }
 }
 
-function installWindowsupdates{
+function installWindowsupdates {
     Write-Host "Installing Windows updates..."
     try {
         # Install the PSWindowsUpdate module
@@ -136,12 +168,14 @@ function installWindowsupdates{
     
         # Install all available updates
         if ($updates) {
-            Install-WindowsUpdate -AcceptAll -AutoReboot -Verbose | Out-File "C:\Logs\WindowsUpdateLog.txt"
+            Install-WindowsUpdate -AcceptAll -AutoReboot -Verbose | Out-File "$($env:TEMP)\WindowsUpdateLog.txt"
             Write-Host "Updates installed successfully. System will reboot if required."
-        } else {
+        }
+        else {
             Write-Host "No updates available."
         }
-    } catch {
+    }
+    catch {
         Write-Error "An error occurred: $_"
     }
     
@@ -149,15 +183,14 @@ function installWindowsupdates{
 
 }
 
-function installWSL
-{
+function installWSL {
     Write-Host "Installing WSL..."
     # Enable WSL
     wsl --install -d Ubuntu
     Write-Host "WSL has been installed successfully."
 }
 
-function configureDevMachine{
+function configureDevMachine {
 
     installWSL
     installWindowsupdates
