@@ -103,6 +103,7 @@ function InstallWinGet {
 
 function installAllToolsAndApps {
     runWinGet -id "Microsoft.WSL" -message "Installing WSL"
+    runWinGet -id "9PDXGNCFSCZV" -message "Installing Ubuntu"
     runWinGet -id "Microsoft.PowerToys" -message "Installing PowerToys"
     runWinGet -id "Microsoft.DotNet.SDK.8" -message "Installing .NET 8 SDK"
     runWinGet -id "Microsoft.DotNet.Runtime.8" -message "Installing .NET 8 Runtime"
@@ -131,7 +132,7 @@ function runWinGet {
     )
 
     Write-Host $message
-    winget install -e --id $id --source $source --accept-package-agreements --accept-source-agreements --silent
+    winget install -e --id $id --source $source --accept-package-agreements --accept-source-agreements --silent --force
 
 }
 
