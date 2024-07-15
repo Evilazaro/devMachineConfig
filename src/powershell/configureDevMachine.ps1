@@ -287,34 +287,37 @@ function Step1{
     InstallPS7
     InstallWinGet
     installWSL
-    Restart-Computer -Force
+    Restart-Computer -Delay 10
 }
 
 function Step2{
     installAllToolsAndApps
     InstallVSCodeExtensions
     UpdateDotNetWorkloads
-    Restart-Computer -Force
+    Restart-Computer -Delay 10
 }
 
 function InstalVSWorkloads
 {
     # Install Visual Studio Enterprise with specific workloads
     $workloads = "--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"
-    winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source $source --accept-package-agreements --accept-source-agreements --silent --force --override $workloads
+    winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source "winget" --accept-package-agreements --accept-source-agreements --silent --force --override $workloads
 }
 
 function configureDevMachine {
    
-   if($step -eq 1){
-        Step1
-   }
-   elseif ($step -eq 2){
-        Step2
-   }
-   else {
-        Write-Host "Invalid step number"
-   }
+#    if($step -eq 1){
+#         Step1
+#    }
+#    elseif ($step -eq 2){
+#         Step2
+#    }
+#    else {
+#         Write-Host "Invalid step number"
+#    }
+    InstallPS7
+    InstallWinGet
+    winget import -i .\configDevMachine.json --accept-package-agreements --accept-source-agreements --silent --force
 }
 
 configureDevMachine
