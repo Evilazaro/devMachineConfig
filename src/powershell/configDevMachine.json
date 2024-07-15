@@ -10,7 +10,8 @@
 					"PackageIdentifier": "Microsoft.WSL"
 				},
 				{
-					"PackageIdentifier": "9PDXGNCFSCZV"
+					"PackageIdentifier": "9PDXGNCFSCZV",
+					"args": ["--allow-reboot"]
 				},
 				{
 					"PackageIdentifier" : "Microsoft.PowerToys"
@@ -53,11 +54,7 @@
 				},
 				{
 					"PackageIdentifier" : "Microsoft.VisualStudioCode"
-				},
-				{
-					"PackageIdentifier": "Microsoft.VisualStudio.2022.Enterprise",
-					"args": ["--override","--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"]
-				},				
+				},			
 				{
 					"PackageIdentifier" : "TechSmith.Snagit.2024"
 				},
@@ -71,7 +68,8 @@
 					"PackageIdentifier" : "Microsoft.Azure.StorageExplorer"
 				},
 				{
-					"PackageIdentifier": "Docker.DockerDesktop"
+					"PackageIdentifier": "Docker.DockerDesktop",
+					"args": ["--allow-reboot"]
 				}
 			],
 			"SourceDetails" : 

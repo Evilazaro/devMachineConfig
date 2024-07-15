@@ -146,7 +146,7 @@ function runWinGet {
     )
 
     Write-Host $message
-    winget install -e --id $id --source $source --accept-package-agreements --accept-source-agreements --silent --force
+    winget install -e --id $id --source $source --accept-package-agreements --accept-source-agreements 
 
 }
 
@@ -305,19 +305,12 @@ function InstalVSWorkloads
 }
 
 function configureDevMachine {
-   
-#    if($step -eq 1){
-#         Step1
-#    }
-#    elseif ($step -eq 2){
-#         Step2
-#    }
-#    else {
-#         Write-Host "Invalid step number"
-#    }
     InstallPS7
     InstallWinGet
     winget import -i .\configDevMachine.json --accept-package-agreements --accept-source-agreements --silent --force
+    $workloads = "--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"
+    winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source "winget" --accept-package-agreements --accept-source-agreements --force --override $workloads
+    InstallVSCodeExtensions
 }
 
 configureDevMachine
