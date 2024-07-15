@@ -141,15 +141,6 @@ properties:
     id: Postman.Postman
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing TechSmith.Snagit.2024
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "TechSmith.Snagit.2024"
-      source: winget
-    id: TechSmith.Snagit.2024
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
       description: Installing Docker.DockerDesktop
       allowPrerelease: true
       securityContext: current
