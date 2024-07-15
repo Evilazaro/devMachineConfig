@@ -276,7 +276,6 @@ function configureDevMachine {
     installAllToolsAndApps
     InstallVSCodeExtensions
     UpdateDotNetWorkloads
-    installWindowsupdates
 }
 
 configureDevMachine
