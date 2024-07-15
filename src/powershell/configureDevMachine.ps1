@@ -1,3 +1,8 @@
+param (
+    [Parameter(Mandatory = $true)]
+    [Int16]$step
+)
+
 Set-ExecutionPolicy Bypass -Scope Process -Force; 
 
 function InstallWinGet {
@@ -124,7 +129,9 @@ function installAllToolsAndApps {
     runWinGet -id "GitHub.cli" -message "Installing GitHub CLI"
     runWinGet -id "GitHub.GitHubDesktop" -message "Installing GitHub Desktop"
     runWinGet -id "Microsoft.VisualStudioCode" -message "Installing Visual Studio Code"
-    runWinGet -id "Microsoft.VisualStudio.2022.Enterprise" -message "Installing Visual Studio 2022 Enterprise"
+    
+    InstalVSWorkloads
+    
     runWinGet -id "Postman.Postman" -message "Installing Postman"
     runwinget -id "Docker.DockerDesktop" -message "Installing Docker Desktop"
 }
@@ -276,14 +283,38 @@ function InstallPS7 {
     }
 }
 
-function configureDevMachine {
-
+function Step1{
     InstallPS7
     InstallWinGet
     installWSL
+    Restart-Computer -Force
+}
+
+function Step2{
     installAllToolsAndApps
     InstallVSCodeExtensions
     UpdateDotNetWorkloads
+    Restart-Computer -Force
+}
+
+function InstalVSWorkloads
+{
+    # Install Visual Studio Enterprise with specific workloads
+    $workloads = "--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"
+    winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source $source --accept-package-agreements --accept-source-agreements --silent --force --override $workloads
+}
+
+function configureDevMachine {
+   
+   if($step -eq 1){
+        Step1
+   }
+   elseif ($step -eq 2){
+        Step2
+   }
+   else {
+        Write-Host "Invalid step number"
+   }
 }
 
 configureDevMachine
