@@ -33,6 +33,15 @@ properties:
     id: Microsoft.DotNet.Runtime.8
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing Microsoft.WindowsTerminal
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.WindowsTerminal"
+      source: winget
+    id: Microsoft.WindowsTerminal
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing PowerShell
       allowPrerelease: true
       securityContext: current
