@@ -61,8 +61,7 @@
 					"PackageIdentifier" : "Microsoft.Azure.StorageExplorer"
 				},
 				{
-					"PackageIdentifier": "Docker.DockerDesktop",
-					"args": ["--allow-reboot"]
+					"PackageIdentifier": "Docker.DockerDesktop"
 				}
 			],
 			"SourceDetails" : 
