@@ -47,6 +47,9 @@
 				},
 				{
 					"PackageIdentifier" : "Microsoft.VisualStudioCode"
+				},
+				{
+					"PackageIdentifier": "Microsoft.VisualStudio.2022.Enterprise"
 				},			
 				{
 					"PackageIdentifier" : "TechSmith.Snagit.2024"

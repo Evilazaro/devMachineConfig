@@ -267,9 +267,13 @@ function InstallPS7 {
 
 function Step1 {
     try {
+        Clear-Host
+        Write-Host "Step 1: Installing PowerShell 7, WinGet and WSL"
         InstallPS7
         InstallWinGet
         installWSL
+        write-host "Restarting computer..."
+        Start-Sleep 5
         Restart-Computer
     }
     catch {
@@ -279,7 +283,10 @@ function Step1 {
 
 function Step2 {
     try {
+        Clear-Host
+        Write-Host "Step 2: SDKs, IDEs, Tools and applications"
         installAllToolsAndApps
+        Start-Sleep 5
         Restart-Computer
     }
     catch {
@@ -289,19 +296,14 @@ function Step2 {
 
 function step3 {
     try {
-        InstalVSWorkloads
+        Clear-Host
+        Write-Host "Step 3: Installing VSCode extensions and updating DotNet workloads"
         InstallVSCodeExtensions
         UpdateDotNetWorkloads
     }
     catch {
         write-Error $_
     }
-}
-
-function InstalVSWorkloads {
-    # Install Visual Studio Enterprise with specific workloads
-    $workloads = "--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"
-    winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source "winget" --accept-package-agreements --accept-source-agreements --silent --force --override $workloads
 }
 
 function configureDevMachine {
