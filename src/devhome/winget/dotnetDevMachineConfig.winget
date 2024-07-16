@@ -15,6 +15,15 @@ properties:
     id: Microsoft.AppInstaller
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing Power Toys
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.PowerToys"
+      source: winget
+    id: Microsoft.PowerToys
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing Dotnet SDK 8
       allowPrerelease: true
       securityContext: current
@@ -148,6 +157,24 @@ properties:
       id: "Docker.DockerDesktop"
       source: winget
     id: Docker.DockerDesktop
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
+      description: Installing ServiceBusExplorer
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "paolosalvatori.ServiceBusExplorer"
+      source: winget
+    id: paolosalvatori.ServiceBusExplorer
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
+      description: Installing StorageExplorer
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.Azure.StorageExplorer"
+      source: winget
+    id: Microsoft.Azure.StorageExplorer
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
       description: Installing Dev Home Azure Extension
