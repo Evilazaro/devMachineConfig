@@ -177,6 +177,15 @@ properties:
     id: Microsoft.Azure.StorageExplorer
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
+      description: Installing RemoteDesktopClient
+      allowPrerelease: true
+      securityContext: current
+    settings:
+      id: "Microsoft.RemoteDesktopClient"
+      source: winget
+    id: Microsoft.RemoteDesktopClient
+  - resource: Microsoft.WinGet.DSC/WinGetPackage
+    directives:
       description: Installing Dev Home Azure Extension
       allowPrerelease: true
       securityContext: current
