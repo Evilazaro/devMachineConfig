@@ -7,13 +7,6 @@
 			"Packages" : 
 			[
 				{
-					"PackageIdentifier": "Microsoft.WSL"
-				},
-				{
-					"PackageIdentifier": "9PDXGNCFSCZV",
-					"args": ["--allow-reboot"]
-				},
-				{
 					"PackageIdentifier" : "Microsoft.PowerToys"
 				},
 				{
