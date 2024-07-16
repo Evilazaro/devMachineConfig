@@ -7,7 +7,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force;
 
 function InstallWinGet {
 
-    $PsInstallScope = "CurrentUser"
+    $PsInstallScope = "AllUsers"
     Write-Host "Installing powershell modules in scope: $PsInstallScope"
 
     # ensure NuGet provider is installed
@@ -56,7 +56,7 @@ function InstallWinGet {
         Write-Error $_
     }
 
-    if ($PsInstallScope -eq "CurrentUser") {
+    if ($PsInstallScope -eq "AllUsers") {
         $msUiXamlPackage = Get-AppxPackage -Name "Microsoft.UI.Xaml.2.8" | Where-Object { $_.Version -ge "8.2310.30001.0" }
         if (!($msUiXamlPackage)) {
             # instal Microsoft.UI.Xaml
@@ -147,23 +147,31 @@ function UpdateDotNetWorkloads {
 function InstallVSCodeExtensions {
     try {
         Write-Host "Installing VSCode extensions..."
-        code --install-extension ms-vscode-remote.remote-wsl --force
-        code --install-extension ms-vscode.PowerShell --force
-        code --install-extension ms-vscode.vscode-node-azure-pack --force
-        code --install-extension GitHub.copilot --force
-        code --install-extension GitHub.vscode-pull-request-github --force
-        code --install-extension GitHub.copilot-chat --force
-        code --install-extension GitHub.remotehub --force
-        code --install-extension GitHub.vscode-github-actions --force
-        code --install-extension eamodio.gitlens-insiders --force	
-        code --install-extension ms-vscode.azure-repos --force
-        code --install-extension ms-azure-devops.azure-pipelines --force
-        code --install-extension ms-azuretools.vscode-docker --force	
-        code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
-        code --install-extension ms-kubernetes-tools.vscode-aks-tools --force
-        code --install-extension ms-azuretools.vscode-azurecontainerapps --force
-        code --install-extension ms-azuretools.vscode-azurefunctions --force
-        code --install-extension ms-azuretools.vscode-apimanagement	--force
+
+        $extensions = @(
+            "ms-vscode-remote.remote-wsl",
+            "ms-vscode.PowerShell",
+            "ms-vscode.vscode-node-azure-pack",
+            "GitHub.copilot",
+            "GitHub.vscode-pull-request-github",
+            "GitHub.copilot-chat",
+            "GitHub.remotehub",
+            "GitHub.vscode-github-actions",
+            "eamodio.gitlens-insiders",
+            "ms-vscode.azure-repos",
+            "ms-azure-devops.azure-pipelines",
+            "ms-azuretools.vscode-docker",
+            "ms-kubernetes-tools.vscode-kubernetes-tools",
+            "ms-kubernetes-tools.vscode-aks-tools",
+            "ms-azuretools.vscode-azurecontainerapps",
+            "ms-azuretools.vscode-azurefunctions",
+            "ms-azuretools.vscode-apimanagement"
+        )
+
+        foreach ($extension in $extensions) {
+            code --install-extension $extension --force
+        }
+
         Write-Host "VSCode extensions have been installed successfully."
     }
     catch {
@@ -248,7 +256,7 @@ function InstallPS7 {
         $code = Invoke-RestMethod -Uri https://aka.ms/install-powershell.ps1
         $null = New-Item -Path function:Install-PowerShell -Value $code
         WithRetry -ScriptBlock {
-            if ("$($PsInstallScope)" -eq "CurrentUser") {
+            if ("$($PsInstallScope)" -eq "AllUsers") {
                 Install-PowerShell -UseMSI
             }
             else {
@@ -286,6 +294,7 @@ function Step2 {
         Clear-Host
         Write-Host "Step 2: SDKs, IDEs, Tools and applications"
         installAllToolsAndApps
+        write-host "Restarting computer..."
         Start-Sleep 5
         Restart-Computer
     }
@@ -300,6 +309,8 @@ function step3 {
         Write-Host "Step 3: Installing VSCode extensions and updating DotNet workloads"
         InstallVSCodeExtensions
         UpdateDotNetWorkloads
+        Clear-Host
+        write-host "Dev Machine has been configured successfully..."
     }
     catch {
         write-Error $_
