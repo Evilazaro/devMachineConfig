@@ -3,95 +3,82 @@ param (
     [Int16]$step
 )
 
-Set-ExecutionPolicy Bypass -Scope Process -Force; 
+Set-ExecutionPolicy Bypass -Scope Process -Force
 
+# Function to install WinGet
 function InstallWinGet {
-
     $PsInstallScope = "CurrentUser"
-    Write-Host "Installing powershell modules in scope: $PsInstallScope"
+    Write-Host "Installing PowerShell modules in scope: $PsInstallScope"
 
-    # ensure NuGet provider is installed
-    if (!(Get-PackageProvider | Where-Object { $_.Name -eq "NuGet" -and $_.Version -gt "2.8.5.201" })) {
+    # Ensure NuGet provider is installed
+    if (-not (Get-PackageProvider | Where-Object { $_.Name -eq "NuGet" -and $_.Version -gt "2.8.5.201" })) {
         Write-Host "Installing NuGet provider"
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope $PsInstallScope
-        Write-Host "Done Installing NuGet provider"
-    }
-    else {
+        Write-Host "NuGet provider installation complete"
+    } else {
         Write-Host "NuGet provider is already installed"
     }
 
     # Set PSGallery installation policy to trusted
     Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
-    pwsh.exe -MTA -Command "Set-PSRepository -Name PSGallery -InstallationPolicy Trusted"
 
-    # check if the Microsoft.Winget.Client module is installed
-    if (!(Get-Module -ListAvailable -Name Microsoft.Winget.Client)) {
+    # Install Microsoft.Winget.Client module if not already installed
+    if (-not (Get-Module -ListAvailable -Name Microsoft.Winget.Client)) {
         Write-Host "Installing Microsoft.Winget.Client"
         Install-Module Microsoft.WinGet.Client -Scope $PsInstallScope
-        pwsh.exe -MTA -Command "Install-Module Microsoft.WinGet.Client -Scope $PsInstallScope"
-        Write-Host "Done Installing Microsoft.Winget.Client"
-    }
-    else {
+        Write-Host "Microsoft.Winget.Client installation complete"
+    } else {
         Write-Host "Microsoft.Winget.Client is already installed"
     }
 
-    # check if the Microsoft.WinGet.Configuration module is installed
-    if (!(Get-Module -ListAvailable -Name Microsoft.WinGet.Configuration)) {
+    # Install Microsoft.WinGet.Configuration module if not already installed
+    if (-not (Get-Module -ListAvailable -Name Microsoft.WinGet.Configuration)) {
         Write-Host "Installing Microsoft.WinGet.Configuration"
-        pwsh.exe -MTA -Command "Install-Module Microsoft.WinGet.Configuration -AllowPrerelease -Scope $PsInstallScope"
-        Write-Host "Done Installing Microsoft.WinGet.Configuration"
-    }
-    else {
+        Install-Module Microsoft.WinGet.Configuration -AllowPrerelease -Scope $PsInstallScope
+        Write-Host "Microsoft.WinGet.Configuration installation complete"
+    } else {
         Write-Host "Microsoft.WinGet.Configuration is already installed"
     }
 
+    # Update WinGet
     Write-Host "Updating WinGet"
     try {
         Write-Host "Attempting to repair WinGet Package Manager"
         Repair-WinGetPackageManager -Latest -Force
-        Write-Host "Done Reparing WinGet Package Manager"
-    }
-    catch {
-        Write-Host "Failed to repair WinGet Package Manager"
-        Write-Error $_
+        Write-Host "WinGet Package Manager repair complete"
+    } catch {
+        Write-Error "Failed to repair WinGet Package Manager: $_"
     }
 
     if ($PsInstallScope -eq "CurrentUser") {
         $msUiXamlPackage = Get-AppxPackage -Name "Microsoft.UI.Xaml.2.8" | Where-Object { $_.Version -ge "8.2310.30001.0" }
-        if (!($msUiXamlPackage)) {
-            # instal Microsoft.UI.Xaml
+        if (-not $msUiXamlPackage) {
+            # Install Microsoft.UI.Xaml
             try {
                 Write-Host "Installing Microsoft.UI.Xaml"
-                $architecture = "x64"
-                if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") {
-                    $architecture = "arm64"
-                }
+                $architecture = if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") { "arm64" } else { "x64" }
                 $MsUiXaml = "$env:TEMP\$([System.IO.Path]::GetRandomFileName())-Microsoft.UI.Xaml.2.8.6"
-                $MsUiXamlZip = "$($MsUiXaml).zip"
+                $MsUiXamlZip = "$MsUiXaml.zip"
                 Invoke-WebRequest -Uri "https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8.6" -OutFile $MsUiXamlZip
                 Expand-Archive $MsUiXamlZip -DestinationPath $MsUiXaml
-                Add-AppxPackage -Path "$($MsUiXaml)\tools\AppX\$($architecture)\Release\Microsoft.UI.Xaml.2.8.appx" -ForceApplicationShutdown
-                Write-Host "Done Installing Microsoft.UI.Xaml"
-            }
-            catch {
-                Write-Host "Failed to install Microsoft.UI.Xaml"
-                Write-Error $_
+                Add-AppxPackage -Path "$MsUiXaml\tools\AppX\$architecture\Release\Microsoft.UI.Xaml.2.8.appx" -ForceApplicationShutdown
+                Write-Host "Microsoft.UI.Xaml installation complete"
+            } catch {
+                Write-Error "Failed to install Microsoft.UI.Xaml: $_"
             }
         }
 
         $desktopAppInstallerPackage = Get-AppxPackage -Name "Microsoft.DesktopAppInstaller"
-        if (!($desktopAppInstallerPackage) -or ($desktopAppInstallerPackage.Version -lt "1.22.0.0")) {
-            # install Microsoft.DesktopAppInstaller
+        if (-not $desktopAppInstallerPackage -or $desktopAppInstallerPackage.Version -lt "1.22.0.0") {
+            # Install Microsoft.DesktopAppInstaller
             try {
                 Write-Host "Installing Microsoft.DesktopAppInstaller"
                 $DesktopAppInstallerAppx = "$env:TEMP\$([System.IO.Path]::GetRandomFileName())-DesktopAppInstaller.appx"
                 Invoke-WebRequest -Uri "https://aka.ms/getwinget" -OutFile $DesktopAppInstallerAppx
                 Add-AppxPackage -Path $DesktopAppInstallerAppx -ForceApplicationShutdown
-                Write-Host "Done Installing Microsoft.DesktopAppInstaller"
-            }
-            catch {
-                Write-Host "Failed to install DesktopAppInstaller appx package"
-                Write-Error $_
+                Write-Host "Microsoft.DesktopAppInstaller installation complete"
+            } catch {
+                Write-Error "Failed to install DesktopAppInstaller appx package: $_"
             }
         }
 
@@ -102,41 +89,32 @@ function InstallWinGet {
 
     # Revert PSGallery installation policy to untrusted
     Set-PSRepository -Name "PSGallery" -InstallationPolicy Untrusted
-    pwsh.exe -MTA -Command "Set-PSRepository -Name PSGallery -InstallationPolicy Untrusted"
-
 }
 
-
-function installWSL
-{
-    runWinGet -id "Microsoft.WSL" -message "Installing WSL"
-    runWinGet -id "9PDXGNCFSCZV" -message "Installing Ubuntu"
+# Function to install WSL
+function InstallWSL {
+    Write-Host "Installing WSL..."
+    try {
+        wsl --install -d Ubuntu
+        Write-Host "WSL has been installed successfully."
+    } catch {
+        Write-Error "Failed to install WSL: $_"
+    }
 }
 
-
-function installAllToolsAndApps {
-
-    runWinGet -id "Microsoft.PowerToys" -message "Installing PowerToys"
-    runWinGet -id "Microsoft.DotNet.SDK.8" -message "Installing .NET 8 SDK"
-    runWinGet -id "Microsoft.DotNet.Runtime.8" -message "Installing .NET 8 Runtime"
-    runWinGet -id "Microsoft.WindowsTerminal" -message "Installing Windows Terminal"
-    runWinGet -id "9MZ1SNWT0N5D" -message "Installing PowerShell" -source "msstore"
-    runWinGet -id "Microsoft.AzureCLI" -message "Installing Azure CLI"
-    runWinGet -id "Microsoft.Azd" -message "Installing Azure DevOps CLI"
-    runWinGet -id "OpenJS.NodeJS" -message "Installing NodeJS"
-    runWinGet -id "Microsoft.Azure.FunctionsCoreTools" -message "Installing Azure Functions Core Tools"
-    runWinGet -id "Git.Git" -message "Installing Git"
-    runWinGet -id "GitHub.cli" -message "Installing GitHub CLI"
-    runWinGet -id "GitHub.GitHubDesktop" -message "Installing GitHub Desktop"
-    runWinGet -id "Microsoft.VisualStudioCode" -message "Installing Visual Studio Code"
-    
-    InstalVSWorkloads
-    
-    runWinGet -id "Postman.Postman" -message "Installing Postman"
-    runwinget -id "Docker.DockerDesktop" -message "Installing Docker Desktop"
+# Function to install all tools and apps
+function InstallAllToolsAndApps {
+    Write-Host "Installing all tools and apps..."
+    try {
+        winget import -i .\configDevMachine.json --accept-package-agreements --accept-source-agreements
+        Write-Host "All tools and apps installed successfully."
+    } catch {
+        Write-Error "Failed to install tools and apps: $_"
+    }
 }
 
-function runWinGet {
+# Function to run WinGet with retry mechanism
+function RunWinGet {
     param (
         [Parameter(Mandatory = $true)]
         [string]$id,
@@ -146,95 +124,84 @@ function runWinGet {
     )
 
     Write-Host $message
-    winget install -e --id $id --source $source --accept-package-agreements --accept-source-agreements 
-
+    try {
+        winget install -e --id $id --source $source --accept-package-agreements --accept-source-agreements
+        Write-Host "$message completed successfully."
+    } catch {
+        Write-Error "Failed to run WinGet for $id: $_"
+    }
 }
 
+# Function to update .NET workloads
 function UpdateDotNetWorkloads {
+    Write-Host "Updating .NET workloads..."
     try {
-
-        Write-Host "Updating Dotnet workloads..."
         dotnet workload update
-        Write-Host "Workloads have been completed successfully."
-
-    }
-    catch {
-        Write-Host "Failed to update Dotnet workloads: $_"  -Level "ERROR"
+        Write-Host "Workloads updated successfully."
+    } catch {
+        Write-Error "Failed to update .NET workloads: $_"
     }
 }
 
+# Function to install VSCode extensions
 function InstallVSCodeExtensions {
+    Write-Host "Installing VSCode extensions..."
     try {
-        Write-Host "Installing VSCode extensions..."
-        code --install-extension ms-vscode-remote.remote-wsl --force
-        code --install-extension ms-vscode.PowerShell --force
-        code --install-extension ms-vscode.vscode-node-azure-pack --force
-        code --install-extension GitHub.copilot --force
-        code --install-extension GitHub.vscode-pull-request-github --force
-        code --install-extension GitHub.copilot-chat --force
-        code --install-extension GitHub.remotehub --force
-        code --install-extension GitHub.vscode-github-actions --force
-        code --install-extension eamodio.gitlens-insiders --force	
-        code --install-extension ms-vscode.azure-repos --force
-        code --install-extension ms-azure-devops.azure-pipelines --force
-        code --install-extension ms-azuretools.vscode-docker --force	
-        code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools --force
-        code --install-extension ms-kubernetes-tools.vscode-aks-tools --force
-        code --install-extension ms-azuretools.vscode-azurecontainerapps --force
-        code --install-extension ms-azuretools.vscode-azurefunctions --force
-        code --install-extension ms-azuretools.vscode-apimanagement	--force
-        Write-Host "VSCode extensions have been installed successfully."
-    }
-    catch {
-        Write-Host "Failed to install VSCode extensions: $_" -Level "ERROR"
+        $extensions = @(
+            'ms-vscode-remote.remote-wsl',
+            'ms-vscode.PowerShell',
+            'ms-vscode.vscode-node-azure-pack',
+            'GitHub.copilot',
+            'GitHub.vscode-pull-request-github',
+            'GitHub.copilot-chat',
+            'GitHub.remotehub',
+            'GitHub.vscode-github-actions',
+            'eamodio.gitlens-insiders',
+            'ms-vscode.azure-repos',
+            'ms-azure-devops.azure-pipelines',
+            'ms-azuretools.vscode-docker',
+            'ms-kubernetes-tools.vscode-kubernetes-tools',
+            'ms-kubernetes-tools.vscode-aks-tools',
+            'ms-azuretools.vscode-azurecontainerapps',
+            'ms-azuretools.vscode-azurefunctions',
+            'ms-azuretools.vscode-apimanagement'
+        )
+
+        foreach ($extension in $extensions) {
+            code --install-extension $extension --force
+        }
+        Write-Host "VSCode extensions installed successfully."
+    } catch {
+        Write-Error "Failed to install VSCode extensions: $_"
     }
 }
 
-function installWindowsupdates {
+# Function to install Windows updates
+function InstallWindowsUpdates {
     Write-Host "Installing Windows updates..."
     try {
-        # Install the PSWindowsUpdate module
         Install-Module -Name PSWindowsUpdate -Force -SkipPublisherCheck
-    
-        # Import the module
         Import-Module PSWindowsUpdate
-    
-        # Check for updates
         $updates = Get-WindowsUpdate
-    
-        # Install all available updates
         if ($updates) {
-            Install-WindowsUpdate -AcceptAll -AutoReboot -Verbose | Out-File "$($env:TEMP)\WindowsUpdateLog.txt"
+            Install-WindowsUpdate -AcceptAll -AutoReboot -Verbose | Out-File "$env:TEMP\WindowsUpdateLog.txt"
             Write-Host "Updates installed successfully. System will reboot if required."
-        }
-        else {
+        } else {
             Write-Host "No updates available."
         }
+    } catch {
+        Write-Error "Failed to install Windows updates: $_"
     }
-    catch {
-        Write-Error "An error occurred: $_"
-    }
-    
-    Write-Host "Windows updates have been installed successfully."
-
 }
 
-function installWSL {
-    Write-Host "Installing WSL..."
-    # Enable WSL
-    wsl --install -d Ubuntu
-    Write-Host "WSL has been installed successfully."
-}
-
+# Function to retry a script block
 function WithRetry {
-    Param(
-        [Parameter(Position=0, Mandatory=$true)]
+    param (
+        [Parameter(Mandatory = $true)]
         [scriptblock]$ScriptBlock,
-
-        [Parameter(Position=1, Mandatory=$false)]
+        [Parameter(Mandatory = $false)]
         [int]$Maximum = 5,
-
-        [Parameter(Position=2, Mandatory=$false)]
+        [Parameter(Mandatory = $false)]
         [int]$Delay = 100
     )
 
@@ -243,13 +210,11 @@ function WithRetry {
     do {
         $iterationCount++
         try {
-            Invoke-Command -Command $ScriptBlock
+            Invoke-Command -ScriptBlock $ScriptBlock
             return
         } catch {
             $lastException = $_
             Write-Error $_
-
-            # Sleep for a random amount of time with exponential backoff
             $randomDouble = Get-Random -Minimum 0.0 -Maximum 1.0
             $k = $randomDouble * ([Math]::Pow(2.0, $iterationCount) - 1.0)
             Start-Sleep -Milliseconds ($k * $Delay)
@@ -259,59 +224,68 @@ function WithRetry {
     throw $lastException
 }
 
-
+# Function to install PowerShell 7
 function InstallPS7 {
-    if (!(Get-Command pwsh -ErrorAction SilentlyContinue)) {
+    if (-not (Get-Command pwsh -ErrorAction SilentlyContinue)) {
         Write-Host "Installing PowerShell 7"
         $code = Invoke-RestMethod -Uri https://aka.ms/install-powershell.ps1
         $null = New-Item -Path function:Install-PowerShell -Value $code
         WithRetry -ScriptBlock {
-            if ("$($PsInstallScope)" -eq "CurrentUser") {
+            if ($PsInstallScope -eq "CurrentUser") {
                 Install-PowerShell -UseMSI
-            }
-            else {
-                # The -Quiet flag requires admin permissions
+            } else {
                 Install-PowerShell -UseMSI -Quiet
             }
         } -Maximum 5 -Delay 100
-        # Need to update the path post install
         $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
-        Write-Host "Done Installing PowerShell 7"
-    }
-    else {
+        Write-Host "PowerShell 7 installation complete"
+    } else {
         Write-Host "PowerShell 7 is already installed"
     }
 }
 
-function Step1{
-    InstallPS7
-    InstallWinGet
-    installWSL
-    Restart-Computer -Delay 10
+# Function to install Visual Studio workloads
+function InstallVSWorkloads {
+    Write-Host "Installing Visual Studio workloads..."
+    try {
+        $workloads = "--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"
+        winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source "winget" --accept-package-agreements --accept-source-agreements --silent --force --override $workloads
+        Write-Host "Visual Studio workloads installed successfully."
+    } catch {
+        Write-Error "Failed to install Visual Studio workloads: $_"
+    }
 }
 
-function Step2{
-    installAllToolsAndApps
+# Function to handle step 1
+function Step1 {
+    InstallPS7
+    InstallWinGet
+    InstallWSL
+    Restart-Computer
+}
+
+# Function to handle step 2
+function Step2 {
+    InstallAllToolsAndApps
+    Restart-Computer
+}
+
+# Function to handle step 3
+function Step3 {
+    InstallVSWorkloads
     InstallVSCodeExtensions
     UpdateDotNetWorkloads
-    Restart-Computer -Delay 10
 }
 
-function InstalVSWorkloads
-{
-    # Install Visual Studio Enterprise with specific workloads
-    $workloads = "--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"
-    winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source "winget" --accept-package-agreements --accept-source-agreements --silent --force --override $workloads
+# Function to configure the development machine based on step parameter
+function ConfigureDevMachine {
+    switch ($step) {
+        1 { Step1 }
+        2 { Step2 }
+        3 { Step3 }
+        default { Write-Host "Invalid step number" }
+    }
 }
 
-function configureDevMachine {
-    InstallPS7
-    InstallWinGet
-    winget import -i .\configDevMachine.json --accept-package-agreements --accept-source-agreements --silent --force
-    $workloads = "--add Microsoft.VisualStudio.Workload.CoreEditor --add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.ManagedDesktop --add Microsoft.VisualStudio.Workload.Azure"
-    winget install -e --id "Microsoft.VisualStudio.2022.Enterprise" --source "winget" --accept-package-agreements --accept-source-agreements --force --override $workloads
-    InstallVSCodeExtensions
-}
-
-configureDevMachine
-
+# Start configuration based on step parameter
+ConfigureDevMachine
