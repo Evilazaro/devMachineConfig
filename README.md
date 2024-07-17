@@ -10,15 +10,15 @@
 
 1 - To install Microsoft Dev Home you need to access the [link](https://aka.ms/devhome) and click install to start the installation process using by Microsoft Store.
 
-![alt text](images/devBoxInstall.png)
+![alt text](docs/images/step1/devBoxInstall.png)
 
 2 - Click Get to install Microsoft Dev Home
 
-![alt text](images/devBoxMSStore.png)
+![alt text](docs/images/step1/devBoxMSStore.png)
 
 3 - After the installation, find Microsoft Dev Home app and open it
 
-![alt text](images/devHome.png)
+![alt text](docs/images/step1/devHome.png)
 
 ### Configure Windows Dependencies using Microsoft Dev Home
 
