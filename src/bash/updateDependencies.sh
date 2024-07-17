@@ -34,6 +34,8 @@ install_or_update_dotnet() {
   log_message "Updating .NET workloads..."
   dotnet workload update
   log_message ".NET workloads have been updated."
+}
+
 # Function to install Azure CLI
 install_azure_cli() {
   log_message "Installing Azure CLI..."
