@@ -54,7 +54,7 @@ function installUbuntu{
         Write-Host "winget is installed. Proceeding with Ubuntu installation..."
 
         # Install Ubuntu
-        winget install Ubuntu --accept-package-agreements --accept-source-agreements --silent
+        wsl --install -d Ubuntu
 
         Write-Host "Ubuntu installation initiated."
     }
