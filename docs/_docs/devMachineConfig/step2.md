@@ -1,3 +1,7 @@
+---
+title: Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads
+description: Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads
+---
 ## Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads 
 
 - [Update and Install all dependencies for Windows](#update-and-install-all-dependencies-for-windows)

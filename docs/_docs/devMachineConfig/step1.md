@@ -1,6 +1,6 @@
 ---
 title: Step 1 - Prepare the OS and its configurations for Development
-description: Getting started with Docsy Jekyll
+description: Step 1 - Prepare the OS and its configurations for Development
 ---
 
 # Step 1 - Prepare the OS and its configurations for Development
