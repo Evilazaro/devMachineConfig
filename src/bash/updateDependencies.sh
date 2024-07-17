@@ -69,7 +69,7 @@ install_vscode_extensions() {
   )
 
   for extension in "${extensions[@]}"; do
-    code --install-extension "$extension" --force
+    sudo code --install-extension "$extension" --force
   done
 
   log_message "VSCode extensions have been installed successfully."
