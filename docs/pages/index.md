@@ -1,41 +1,46 @@
 ---
-layout: page
-title: Docsy Jekyll Theme
+title: Getting Started
+tags: 
+ - DevHome
+ - Onboarding
+description: Getting Developer Onboarding Automation with Microsoft DevHome
 permalink: /
 ---
 
-# Welcome to Docsy Jekyll
+# Developer Onboarding Automation with Microsoft DevHome
 
-This is a starter template for a docsy jekyll theme.
+Welcome to the repository dedicated to enhancing the developer experience through the automation of the onboarding process! As a Principal Software Engineer and Solution Architect with over 23 years of experience in the IT industry, I understand the challenges and time-consuming nature of setting up development environments for new team members. This repository aims to streamline and expedite the onboarding process, ensuring that developers can start contributing to projects more quickly and efficiently.
 
-![assets/img/docsy-jekyll.png](assets/img/docsy-jekyll.png)
+## Importance of Enhancing the Developer Experience
 
-## Purpose
+Onboarding new developers involves numerous steps, from configuring development environments to installing necessary tools and dependencies. This manual process can be tedious, error-prone, and time-consuming, leading to delays and inconsistencies across team members' setups. By automating the onboarding process, we can achieve the following benefits:
 
-GitHub pages uses Jekyll natively, so when I make documentation, I typically
-look for Jekyll templates. Why? Using Jekyll means that I can use markdown,
-and allow for users to easily contribute, and build automatically just by
-way of pushing to a master branch (or general GitHub pages).
-I found Docsy, a beautiful Hugo template, but it requires hugo with GoLang
-which doesn't render natively on GitHub pages. For this reason, I've spent
-some time creating a custom Jekyll template that is (almost) as beautiful,
-and includes all the features that I might want.
+- **Consistency:** Ensure all developers have a uniform setup, reducing the chances of environment-specific issues.
+- **Efficiency:** Save valuable time by automating repetitive tasks, allowing developers to focus on productive work.
+- **Scalability:** Easily onboard multiple developers simultaneously without the need for individual setup assistance.
+- **Reduced Errors:** Minimize human errors associated with manual setup, leading to a more stable and reliable development environment.
 
-## Features
+## Introduction to Microsoft DevHome
 
-What are these features? You should see the {% include doc.html name="Getting Started" path="getting-started" %}
-guide for a complete summary. Briefly:
+Microsoft DevHome is a comprehensive platform designed to simplify and automate the configuration of development environments. It provides developers with a seamless experience by integrating various tools and services required for software development. Key features of Microsoft DevHome include:
 
- - *User interaction* including consistent permalinks, links to ask questions via GitHub issues, and edit the file on GitHub directly.
- - *Search* across posts, documentation, and other site pages, with an ability to exclude from search.
- - *External Search* meaning an ability to link any page tag to trigger an external search.
- - *Documentation* A documentation collection that was easy to organize on the filesystem, render with nested headings for the user, and refer to in markdown.
- - *Pages* A separate folder for more traditional pages (e.g, about).
- - *Navigation*: Control over the main navigation on the left of the page, and automatic generation of table of contents for each page on the right.
- - *News* A posts feed for news and updates, along with an archive (organized by year).
- - *Templates* or specifically, "includes" that make it easy to create an alert, documentation link, or other content.
- - *Continuous Integration* recipes to preview the site
+- **Centralized Management:** Manage all development tools and settings from a single interface.
+- **Automated Setup:** Use scripts and configuration files to automate the installation and configuration of development environments.
+- **Extensibility:** Integrate with various development tools and services to customize the environment according to project needs.
+- **User-Friendly Interface:** A straightforward and intuitive interface that makes it easy for developers of all experience levels to get started quickly.
 
+By leveraging Microsoft DevHome, this repository provides a set of documentation and scripts that automate the process of setting up a developer machine, ensuring a smooth and efficient onboarding experience for new team members.
 
-For features, getting started with development, see the {% include doc.html name="Getting Started" path="getting-started" %} page. Would you like to request a feature or contribute?
-[Open an issue]({{ site.repo }}/issues)
+We hope this repository serves as a valuable resource for your team, helping you streamline the onboarding process and enhance the overall developer experience. Feel free to contribute and share your feedback to help us improve and expand the available resources.
+
+Happy coding!
+
+Evilazaro Alves
+Principal Cloud Solution Architect | Digital and App Innovation
+Microsoft
+
+## Enginer Dev Machine Configuration
+
+### [Step 1 - Prepare the OS and its configurations for Development](
+
+### [Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads](./docs/devMachineConfig/step2.md) 
