@@ -13,13 +13,13 @@
 
 ## Update and Install all dependencies for Linux
 ``` bash
-cd ../../mnt/c && \
-git clone https://github.com/Evilazaro/dotnetCustomDeveloperMachineConfiguration.git devMachine && \
-cd devMachine/src/bash && \
+cd ../../mnt/e/devMachineConfig/src/bash && \
+sudo apt-get update && \
+sudo apt-get install -y dos2unix && \
+sudo dos2unix *.sh && \
 sudo ./updateDependencies.sh
 ```
 ## Update and Install all dependencies for Windows
 ``` powershell
-cd src\powershell
-.\configureDevMachine.ps1
+e:\devMachineConfig\srcpowershell\configureDevMachine.ps1
 ```

@@ -36,6 +36,7 @@ install_or_update_dotnet() {
 install_azure_cli() {
   log_message "Installing Azure CLI..."
   curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  sudo apt-get install gh -y
   log_message "Azure CLI installation is complete."
 }
 
