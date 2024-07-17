@@ -7,5 +7,5 @@ tags:
 description: Getting started with Developer Onboarding Automation with Microsoft DevHome
 ---
 
-[Step 1](../_docs/devMachineConfig/step1)
-[Step 2](../_docs/devMachineConfig/step2)
+[Step 1](devMachineConfig/step1)
+[Step 2](devMachineConfig/step2)
