@@ -1,9 +1,5 @@
 ---
 title: Step 1 - Prepare the OS and its configurations for Development
-tags: 
- - Step1
- - DevHome
- - Installation
 description: Getting started with Docsy Jekyll
 ---
 

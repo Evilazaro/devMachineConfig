@@ -5,9 +5,8 @@ tags:
  - Step2
  - DeveloperOnboarding
 description: Getting started with Developer Onboarding Automation with Microsoft DevHome
+permalink: /docs
 ---
 
-[Step 1](../_docs/devMachineConfig/step1.md)
-[Step 2](../_docs/devMachineConfig/step2.md)
-
-{% raw %}[example](./devMachineConfig/step1.md){% endraw %}
+[Step 1](../_docs/devMachineConfig/step1)
+[Step 2](../_docs/devMachineConfig/step2)
