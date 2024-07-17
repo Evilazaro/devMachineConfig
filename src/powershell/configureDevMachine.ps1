@@ -55,7 +55,7 @@ function installVSWorkloads {
 
         # Install Visual Studio Enterprise with specific workloads
         $workloads = @"
-        --add Microsoft.VisualStudio.Workload.CoreEditor
+        --add Microsoft.VisualStudio.Workload.Azure
 
 "@
 
@@ -75,7 +75,8 @@ function installUbuntu{
         Write-Host "winget is installed. Proceeding with Ubuntu installation..."
 
         # Install Ubuntu
-        winget install Ubuntu
+        winget install Ubuntu --accept-package-agreements --accept-source-agreements
+        wsl --set-default Ubuntu
 
         Write-Host "Ubuntu installation initiated."
     }
