@@ -15,8 +15,6 @@ function updateDependencies
     echo ".NET SDK 8.0 installation or update is complete."
 
     installAzureCLI
-
-    installGitHubCLI
 }
 
 # Function to check the package manager and update packages
@@ -50,15 +48,6 @@ installAzureCLI() {
   curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   curl -sL https://aka.ms/install-azd.sh | sudo bash
   echo "Azure CLI installation is complete."
-}
-
-installGitHubCLI
-{
-    echo "Installing GitHub CLI..."
-    sudo apt-get update
-    sudo apt-get install -y gh
-
-    echo "GitHub CLI has been installed sucssessfuly"
 }
 
 updateDependencies
