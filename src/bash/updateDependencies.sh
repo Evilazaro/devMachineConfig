@@ -30,6 +30,10 @@ install_or_update_dotnet() {
   sudo apt-get update -y
   sudo apt-get install -y dotnet-sdk-8.0
   log_message ".NET SDK 8.0 installation or update is complete."
+
+  log_message "Updating .NET workloads..."
+  sudo dotnet workload update
+  log_message ".NET workloads have been updated."
 }
 
 # Function to install Azure CLI
@@ -40,11 +44,42 @@ install_azure_cli() {
   log_message "Azure CLI installation is complete."
 }
 
+function InstallVSCodeExtensions {
+    echo "Installing VSCode extensions..."
+
+    extensions=(
+        "ms-vscode-remote.remote-wsl"
+        "ms-vscode.PowerShell"
+        "ms-vscode.vscode-node-azure-pack"
+        "GitHub.copilot"
+        "GitHub.vscode-pull-request-github"
+        "GitHub.copilot-chat"
+        "GitHub.remotehub"
+        "GitHub.vscode-github-actions"
+        "eamodio.gitlens-insiders"
+        "ms-vscode.azure-repos"
+        "ms-azure-devops.azure-pipelines"
+        "ms-azuretools.vscode-docker"
+        "ms-kubernetes-tools.vscode-kubernetes-tools"
+        "ms-kubernetes-tools.vscode-aks-tools"
+        "ms-azuretools.vscode-azurecontainerapps"
+        "ms-azuretools.vscode-azurefunctions"
+        "ms-azuretools.vscode-apimanagement"
+    )
+
+    for extension in "${extensions[@]}"; do
+        code --install-extension $extension --force
+    done
+
+    echo "VSCode extensions have been installed successfully."
+}
+
 # Main function to coordinate the update process
 main() {
   update_packages
   install_or_update_dotnet
   install_azure_cli
+  InstallVSCodeExtensions
 }
 
 # Execute the main function
