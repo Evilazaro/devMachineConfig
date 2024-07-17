@@ -32,6 +32,6 @@ Microsoft
 
 ## Enginer Dev Machine Configuration
 
-### [Step 1 - Prepare the OS and its configurations for Development](./docs/devMachineConfig/step1.md)
+### [Step 1 - Prepare the OS and its configurations for Development](./devMachineConfig/step1.md)
 
-### [Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads](./docs/devMachineConfig/step2.md) 
+### [Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads](./devMachineConfig/step2.md) 
