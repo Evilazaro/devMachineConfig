@@ -1,31 +1,23 @@
 #!/bin/bash
 
-function updateDependencies
-{
-    echo "Updating all packages to the latest versions..."
-    # Run the update function
-    update_packages
+# Exit immediately if a command exits with a non-zero status.
+set -e
 
-    echo "All packages have been updated to the latest versions."
-
-    echo "Installing or updating .NET SDK 8.0..."
-
-    install_or_update_dotnet
-
-    echo ".NET SDK 8.0 installation or update is complete."
-
-    installAzureCLI
+# Function to log messages
+log_message() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
 }
 
-# Function to check the package manager and update packages
+# Function to update all packages
 update_packages() {
-  sudo apt-get update && \
-  sudo apt-get upgrade -y 
+  log_message "Updating all packages to the latest versions..."
+  sudo apt-get update && sudo apt-get upgrade -y
+  log_message "All packages have been updated to the latest versions."
 }
 
-# Function to install or update .NET SDK 8.0 on Ubuntu
+# Function to install or update .NET SDK 8.0
 install_or_update_dotnet() {
-  echo "Using apt-get for package installation..."
+  log_message "Installing or updating .NET SDK 8.0..."
   sudo apt-get update -y
   sudo apt-get install -y wget apt-transport-https
 
@@ -33,24 +25,26 @@ install_or_update_dotnet() {
   sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
 
   # Download and install the Microsoft package repository for Ubuntu
-  wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+  wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
   sudo dpkg -i packages-microsoft-prod.deb
   sudo apt-get update -y
   sudo apt-get install -y dotnet-sdk-8.0
-
-  echo "Updating dotnet workloads..."
-  sudo dotnet workload update
-  echo "dotnet workloads have been updated."
+  log_message ".NET SDK 8.0 installation or update is complete."
 }
 
-installAzureCLI() {
-  echo "Installing Azure CLI..."
+# Function to install Azure CLI
+install_azure_cli() {
+  log_message "Installing Azure CLI..."
   curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-  curl -sL https://aka.ms/install-azd.sh | sudo bash
-  echo "Azure CLI installation is complete."
+  log_message "Azure CLI installation is complete."
 }
 
-updateDependencies
+# Main function to coordinate the update process
+main() {
+  update_packages
+  install_or_update_dotnet
+  install_azure_cli
+}
 
-
-
+# Execute the main function
+main
