@@ -34,8 +34,6 @@ install_or_update_dotnet() {
   log_message "Updating .NET workloads..."
   sudo dotnet workload update
   log_message ".NET workloads have been updated."
-}
-
 # Function to install Azure CLI
 install_azure_cli() {
   log_message "Installing Azure CLI..."
@@ -44,32 +42,47 @@ install_azure_cli() {
   log_message "Azure CLI installation is complete."
 }
 
-function InstallVSCodeExtensions {
-    echo "Installing VSCode extensions..."
+# Function to install VSCode extensions
+install_vscode_extensions() {
+  log_message "Installing VSCode extensions..."
+  
+  local extensions=(
+    "ms-vscode-remote.remote-wsl"
+    "ms-vscode.PowerShell"
+    "ms-vscode.vscode-node-azure-pack"
+    "GitHub.copilot"
+    "GitHub.vscode-pull-request-github"
+    "GitHub.copilot-chat"
+    "GitHub.remotehub"
+    "GitHub.vscode-github-actions"
+    "eamodio.gitlens-insiders"
+    "ms-vscode.azure-repos"
+    "ms-azure-devops.azure-pipelines"
+    "ms-azuretools.vscode-docker"
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+    "ms-kubernetes-tools.vscode-aks-tools"
+    "ms-azuretools.vscode-azurecontainerapps"
+    "ms-azuretools.vscode-azurefunctions"
+    "ms-azuretools.vscode-apimanagement"
+  )
 
+  for extension in "${extensions[@]}"; do
+    code --install-extension "$extension" --force
+  done
 
-    code --install-extension "ms-vscode-remote.remote-wsl" --force
-    code --install-extension "ms-vscode.PowerShell" --force
-    code --install-extension "ms-vscode.vscode-node-azure-pack" --force
-    code --install-extension "GitHub.copilot" --force
-    code --install-extension "GitHub.vscode-pull-request-github" --force
-    code --install-extension "GitHub.copilot-chat" --force
-    code --install-extension "GitHub.remotehub" --force
-    code --install-extension "GitHub.vscode-github-actions" --force
-    code --install-extension "eamodio.gitlens-insiders" --force
-    code --install-extension "ms-vscode.azure-repos" --force
-    code --install-extension "ms-azure-devops.azure-pipelines" --force
-    code --install-extension "ms-azuretools.vscode-docker" --force
-    code --install-extension "ms-kubernetes-tools.vscode-kubernetes-tools" --force
-    code --install-extension "ms-kubernetes-tools.vscode-aks-tools" --force
-    code --install-extension "ms-azuretools.vscode-azurecontainerapps" --force
-    code --install-extension "ms-azuretools.vscode-azurefunctions" --force
-    code --install-extension "ms-azuretools.vscode-apimanagement" --force
-
-
-
-    echo "VSCode extensions have been installed successfully."
+  log_message "VSCode extensions have been installed successfully."
 }
+
+# Main function to coordinate the update process
+main() {
+  update_packages
+  install_or_update_dotnet
+  install_azure_cli
+  install_vscode_extensions
+}
+
+# Execute the main function
+main
 
 # Main function to coordinate the update process
 main() {
