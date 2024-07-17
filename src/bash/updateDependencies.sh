@@ -44,33 +44,6 @@ install_azure_cli() {
   log_message "Azure CLI installation is complete."
 }
 
-function InstallVSCodeExtensions {
-    echo "Installing VSCode extensions..."
-
-
-    code --install-extension "ms-vscode-remote.remote-wsl" --force
-    code --install-extension "ms-vscode.PowerShell" --force
-    code --install-extension "ms-vscode.vscode-node-azure-pack" --force
-    code --install-extension "GitHub.copilot" --force
-    code --install-extension "GitHub.vscode-pull-request-github" --force
-    code --install-extension "GitHub.copilot-chat" --force
-    code --install-extension "GitHub.remotehub" --force
-    code --install-extension "GitHub.vscode-github-actions" --force
-    code --install-extension "eamodio.gitlens-insiders" --force
-    code --install-extension "ms-vscode.azure-repos" --force
-    code --install-extension "ms-azure-devops.azure-pipelines" --force
-    code --install-extension "ms-azuretools.vscode-docker" --force
-    code --install-extension "ms-kubernetes-tools.vscode-kubernetes-tools" --force
-    code --install-extension "ms-kubernetes-tools.vscode-aks-tools" --force
-    code --install-extension "ms-azuretools.vscode-azurecontainerapps" --force
-    code --install-extension "ms-azuretools.vscode-azurefunctions" --force
-    code --install-extension "ms-azuretools.vscode-apimanagement" --force
-
-
-
-    echo "VSCode extensions have been installed successfully."
-}
-
 # Main function to coordinate the update process
 main() {
   update_packages
@@ -87,7 +60,6 @@ main() {
   update_packages
   install_or_update_dotnet
   install_azure_cli
-  InstallVSCodeExtensions
 }
 
 # Execute the main function
