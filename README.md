@@ -1,42 +1,37 @@
-# Enginer Dev Machine Configuration
+# Developer Onboarding Automation with Microsoft DevHome
 
-## Step 1 - Prepare the OS and its configurations for Development
+Welcome to the repository dedicated to enhancing the developer experience through the automation of the onboarding process! As a Principal Software Engineer and Solution Architect with over 23 years of experience in the IT industry, I understand the challenges and time-consuming nature of setting up development environments for new team members. This repository aims to streamline and expedite the onboarding process, ensuring that developers can start contributing to projects more quickly and efficiently.
 
-- [Install Microsoft Dev Home](#install-microsoft-dev-home)
-- [Configure Windows Dependencies using Microsoft Dev Home](#configure-windows-dependencies-using-microsoft-dev-home)
-- [Clone this repo and store it on a Dev Drive](https://learn.microsoft.com/en-us/windows/dev-home/setup#clone-a-repo-and-store-it-on-a-dev-drive)
+## Importance of Enhancing the Developer Experience
 
-### Install Microsoft Dev Home
+Onboarding new developers involves numerous steps, from configuring development environments to installing necessary tools and dependencies. This manual process can be tedious, error-prone, and time-consuming, leading to delays and inconsistencies across team members' setups. By automating the onboarding process, we can achieve the following benefits:
 
-1 - To install Microsoft Dev Home you need to access the [link](https://aka.ms/devhome) and click install to start the installation process using by Microsoft Store.
+- **Consistency:** Ensure all developers have a uniform setup, reducing the chances of environment-specific issues.
+- **Efficiency:** Save valuable time by automating repetitive tasks, allowing developers to focus on productive work.
+- **Scalability:** Easily onboard multiple developers simultaneously without the need for individual setup assistance.
+- **Reduced Errors:** Minimize human errors associated with manual setup, leading to a more stable and reliable development environment.
 
-![alt text](docs/images/step1/devBoxInstall.png)
+## Introduction to Microsoft DevHome
 
-2 - Click Get to install Microsoft Dev Home
+Microsoft DevHome is a comprehensive platform designed to simplify and automate the configuration of development environments. It provides developers with a seamless experience by integrating various tools and services required for software development. Key features of Microsoft DevHome include:
 
-![alt text](docs/images/step1/devBoxMSStore.png)
+- **Centralized Management:** Manage all development tools and settings from a single interface.
+- **Automated Setup:** Use scripts and configuration files to automate the installation and configuration of development environments.
+- **Extensibility:** Integrate with various development tools and services to customize the environment according to project needs.
+- **User-Friendly Interface:** A straightforward and intuitive interface that makes it easy for developers of all experience levels to get started quickly.
 
-3 - After the installation, find Microsoft Dev Home app and open it
+By leveraging Microsoft DevHome, this repository provides a set of documentation and scripts that automate the process of setting up a developer machine, ensuring a smooth and efficient onboarding experience for new team members.
 
-![alt text](docs/images/step1/devHome.png)
+We hope this repository serves as a valuable resource for your team, helping you streamline the onboarding process and enhance the overall developer experience. Feel free to contribute and share your feedback to help us improve and expand the available resources.
 
-### Configure Windows Dependencies using Microsoft Dev Home
+Happy coding!
 
-## Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads 
+Evilazaro Alves
+Principal Cloud Solution Architect | Digital and App Innovation
+Microsoft
 
-- [Update and Install all dependencies for Windows](#update-and-install-all-dependencies-for-windows)
-- [Update and Install all dependencies for Linux](#update-and-install-all-dependencies-for-linux)
+## Enginer Dev Machine Configuration
 
-### Update and Install all dependencies for Windows
-``` powershell
-e:\devMachineConfig\srcpowershell\configureDevMachine.ps1
-```
+### [Step 1 - Prepare the OS and its configurations for Development](./docs/devMachineConfig/step1.md)
 
-### Update and Install all dependencies for Linux
-``` bash
-cd ../../mnt/e/devMachineConfig/src/bash && \
-sudo apt-get update && \
-sudo apt-get install -y dos2unix && \
-sudo dos2unix *.sh && \
-sudo ./updateDependencies.sh
-```
+### [Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads](./docs/devMachineConfig/step2.md) 
