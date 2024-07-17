@@ -5,7 +5,6 @@ tags:
  - Step2
  - DeveloperOnboarding
 description: Getting started with Developer Onboarding Automation with Microsoft DevHome
-permalink: /docs
 ---
 
 [Step 1](../_docs/devMachineConfig/step1)
