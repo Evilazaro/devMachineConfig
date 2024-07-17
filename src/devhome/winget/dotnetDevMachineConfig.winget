@@ -15,15 +15,6 @@ properties:
     id: Microsoft.AppInstaller
   - resource: Microsoft.WinGet.DSC/WinGetPackage
     directives:
-      description: Installing Ubuntu
-      allowPrerelease: true
-      securityContext: current
-    settings:
-      id: "9PDXGNCFSCZV"
-      source: winget
-    id: 9PDXGNCFSCZV
-  - resource: Microsoft.WinGet.DSC/WinGetPackage
-    directives:
       description: Installing Power Toys
       allowPrerelease: true
       securityContext: current

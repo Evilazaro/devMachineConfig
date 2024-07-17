@@ -69,6 +69,23 @@ function installVSWorkloads {
 
 }
 
+function installUbuntu{
+    # Check if winget is installed
+    if (Get-Command winget -ErrorAction SilentlyContinue) {
+        Write-Host "winget is installed. Proceeding with Ubuntu installation..."
+
+        # Install Ubuntu
+        winget install Ubuntu
+
+        Write-Host "Ubuntu installation initiated."
+    }
+    else {
+        Write-Error "winget is not installed. Please install it from the Microsoft Store."
+    }
+
+}
+
+installUbuntu
 installVSWorkloads
 InstallVSCodeExtensions
 UpdateDotNetWorkloads
