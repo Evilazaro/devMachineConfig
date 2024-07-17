@@ -19,3 +19,9 @@
 ![alt text](../images/step1/devHome.png)
 
 ### Configure Windows Dependencies using Microsoft Dev Home
+
+![alt text](../images/step1/devHomeConfig1.png)
+
+![alt text](../images/step1/devHomeConfig2.png)
+
+![alt text](../images/step1/devHomeConfig3.png)
