@@ -1,9 +1,6 @@
 ---
-title: Getting Started
-tags: 
- - DevHome
- - Onboarding
-description: Getting Developer Onboarding Automation with Microsoft DevHome
+layout: page
+title: Developer Onboarding Automation with Microsoft DevHome
 permalink: /
 ---
 
@@ -41,6 +38,6 @@ Microsoft
 
 ## Enginer Dev Machine Configuration
 
-### [Step 1 - Prepare the OS and its configurations for Development](
+### [Step 1 - Prepare the OS and its configurations for Development](../devMachineConfig/step1.md)
 
-### [Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads](./docs/devMachineConfig/step2.md) 
+### [Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads](../devMachineConfig/step2.md) 
