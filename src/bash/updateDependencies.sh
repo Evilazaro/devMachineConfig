@@ -32,7 +32,7 @@ install_or_update_dotnet() {
   log_message ".NET SDK 8.0 installation or update is complete."
 
   log_message "Updating .NET workloads..."
-  sudo dotnet workload update
+  dotnet workload update
   log_message ".NET workloads have been updated."
 # Function to install Azure CLI
 install_azure_cli() {
