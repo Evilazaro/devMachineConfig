@@ -11,36 +11,36 @@ log_message() {
 # Function to update all packages
 update_packages() {
   log_message "Updating all packages to the latest versions..."
-  sudo apt-get update && sudo apt-get upgrade -y
+   apt-get update &&  apt-get upgrade -y
   log_message "All packages have been updated to the latest versions."
 }
 
 # Function to install or update .NET SDK 8.0
 install_or_update_dotnet() {
   log_message "Installing or updating .NET SDK 8.0..."
-  sudo apt-get update -y
-  sudo apt-get install -y wget apt-transport-https
+   apt-get update -y
+   apt-get install -y wget apt-transport-https
 
   # Remove any existing Microsoft package repository
-  sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
+   rm -f /etc/apt/sources.list.d/microsoft-prod.list
 
   # Download and install the Microsoft package repository for Ubuntu
   wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-  sudo dpkg -i packages-microsoft-prod.deb
-  sudo apt-get update -y
-  sudo apt-get install -y dotnet-sdk-8.0
+   dpkg -i packages-microsoft-prod.deb
+   apt-get update -y
+   apt-get install -y dotnet-sdk-8.0
   log_message ".NET SDK 8.0 installation or update is complete."
 
   log_message "Updating .NET workloads..."
-  sudo dotnet workload update
+   dotnet workload update
   log_message ".NET workloads have been updated."
 }
 
 # Function to install Azure CLI
 install_azure_cli() {
   log_message "Installing Azure CLI..."
-  curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-  sudo apt-get install gh -y
+  curl -sL https://aka.ms/InstallAzureCLIDeb |  bash
+   apt-get install gh -y
   log_message "Azure CLI installation is complete."
 }
 
