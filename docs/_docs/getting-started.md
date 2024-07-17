@@ -9,3 +9,5 @@ description: Getting started with Developer Onboarding Automation with Microsoft
 
 [Step 1](../_docs/devMachineConfig/step1.md)
 [Step 2](../_docs/devMachineConfig/step2.md)
+
+{% raw %}[example](./devMachineConfig/step1.md){% endraw %}
