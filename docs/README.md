@@ -1,37 +1,101 @@
-# Developer Onboarding Automation with Microsoft DevHome
+# Docsy Jekyll Theme
 
-Welcome to the repository dedicated to enhancing the developer experience through the automation of the onboarding process! As a Principal Software Engineer and Solution Architect with over 23 years of experience in the IT industry, I understand the challenges and time-consuming nature of setting up development environments for new team members. This repository aims to streamline and expedite the onboarding process, ensuring that developers can start contributing to projects more quickly and efficiently.
+[![CircleCI](https://circleci.com/gh/vsoch/docsy-jekyll/tree/master.svg?style=svg)](https://circleci.com/gh/vsoch/docsy-jekyll/tree/master)
+<a href="https://jekyll-themes.com/docsy-jekyll/">
+    <img src="https://img.shields.io/badge/featured%20on-JT-red.svg" height="20" alt="Jekyll Themes Shield" >
+</a>
 
-## Importance of Enhancing the Developer Experience
+![https://raw.githubusercontent.com/vsoch/docsy-jekyll/master/assets/img/docsy-jekyll.png](https://raw.githubusercontent.com/vsoch/docsy-jekyll/master/assets/img/docsy-jekyll.png)
 
-Onboarding new developers involves numerous steps, from configuring development environments to installing necessary tools and dependencies. This manual process can be tedious, error-prone, and time-consuming, leading to delays and inconsistencies across team members' setups. By automating the onboarding process, we can achieve the following benefits:
+This is a [starter template](https://vsoch.github.com/docsy-jekyll/) for a Docsy jekyll theme, based
+on the Beautiful [Docsy](https://github.com/google/docsy) that renders with Hugo. This version is intended for
+native deployment on GitHub pages. The original [Apache License](https://github.com/vsoch/docsy-jekyll/blob/master/LICENSE) is included.
 
-- **Consistency:** Ensure all developers have a uniform setup, reducing the chances of environment-specific issues.
-- **Efficiency:** Save valuable time by automating repetitive tasks, allowing developers to focus on productive work.
-- **Scalability:** Easily onboard multiple developers simultaneously without the need for individual setup assistance.
-- **Reduced Errors:** Minimize human errors associated with manual setup, leading to a more stable and reliable development environment.
+## Changes
 
-## Introduction to Microsoft DevHome
+The site is intended for purely documentation, so while the front page banner
+is useful for business or similar, this author (@vsoch) preferred to have
+the main site page go directly to the Documentation view. Posts
+are still provided via a feed.
 
-Microsoft DevHome is a comprehensive platform designed to simplify and automate the configuration of development environments. It provides developers with a seamless experience by integrating various tools and services required for software development. Key features of Microsoft DevHome include:
+## Usage
 
-- **Centralized Management:** Manage all development tools and settings from a single interface.
-- **Automated Setup:** Use scripts and configuration files to automate the installation and configuration of development environments.
-- **Extensibility:** Integrate with various development tools and services to customize the environment according to project needs.
-- **User-Friendly Interface:** A straightforward and intuitive interface that makes it easy for developers of all experience levels to get started quickly.
+### 1. Get the code
 
-By leveraging Microsoft DevHome, this repository provides a set of documentation and scripts that automate the process of setting up a developer machine, ensuring a smooth and efficient onboarding experience for new team members.
+You can clone the repository right to where you want to host the docs:
 
-We hope this repository serves as a valuable resource for your team, helping you streamline the onboarding process and enhance the overall developer experience. Feel free to contribute and share your feedback to help us improve and expand the available resources.
+```bash
+git clone https://github.com/vsoch/docsy-jekyll.git docs
+cd docs
+```
 
-Happy coding!
+### 2. Customize
 
-Evilazaro Alves
-Principal Cloud Solution Architect | Digital and App Innovation
-Microsoft
+To edit configuration values, customize the [_config.yml](https://github.com/vsoch/docsy-jekyll/blob/master/_config.yml).
+To add pages, write them into the [pages](https://github.com/vsoch/docsy-jekyll/blob/master/pages) folder. 
+You define urls based on the `permalink` attribute in your pages,
+and then add them to the navigation by adding to the content of [_data/toc.myl](https://github.com/vsoch/docsy-jekyll/blob/master/_data/toc.yml).
+The top navigation is controlled by [_data/navigation.yml](https://github.com/vsoch/docsy-jekyll/blob/master/_data/navigation.yml)
 
-## Enginer Dev Machine Configuration
+### 3. Options
 
-### [Step 1 - Prepare the OS and its configurations for Development](./devMachineConfig/step1.md)
+Most of the configuration values in the [_config.yml](https://github.com/vsoch/docsy-jekyll/blob/master/_config.yml) are self explanatory,
+and for more details, see the [getting started page](https://vsoch.github.io/docsy-jekyll/docs/getting-started)
+rendered on the site.
 
-### [Step 2 - Update Packages, Installs VS Code Extensions and Updates Dotnet Workloads](./devMachineConfig/step2.md) 
+### 4. Serve
+
+Depending on how you installed jekyll:
+
+```bash
+jekyll serve
+# or
+bundle exec jekyll serve
+```
+
+**NOTE:** If the above serve command throws an error saying `require': cannot load such file -- webrick (LoadError)` try to run `bundle add webrick` to automatically add the webrick gem to your Gemfile, or manually add `gem "webrick"` line to the Gemfile and then run the serve command again.
+
+
+### 5. Run as a container in dev or prod
+
+#### Software Dependencies
+
+If you want to run docsy jekyll via a container for development (dev) or production (prod) you can use containers. This approach requires installing [docker-ce](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/). 
+
+#### Customization
+
+Note that the [docker-compose.yml](docker-compose.yml) file is using the [jekyll/jekyll:3.8](https://hub.docker.com/r/jekyll/jekyll/tags) image. If you want to make your build more reproducible, you can specify a particular version for jekyll (tag). Note that at the development time of writing this documentation, the latest was tag 4.0.0,
+and it [had a bug](https://github.com/fastai/fastpages/issues/267#issuecomment-620612896) that prevented the server from deploying.
+
+If you are deploying a container to production, you should remove the line to
+mount the bundles directory to the host in the docker-compose.yml. Change:
+
+```yaml
+    volumes: 
+      - "./:/srv/jekyll"
+      - "./vendor/bundle:/usr/local/bundle"
+      # remove "./vendor/bundle:/usr/local/bundle" volume when deploying in production
+```
+
+to:
+
+```yaml
+    volumes: 
+      - "./:/srv/jekyll"
+```
+
+This additional volume is optimal for development so you can cache the bundle dependencies,
+but should be removed for production. 
+
+#### Start Container
+
+Once your docker-compose to download the base container and bring up the server:
+
+```bash
+docker-compose up -d
+```
+
+You can then open your browser to [http://localhost:4000](http://localhost:4000)
+to see the server running.
+
+> Node : changes `baseurl: ""` in _config.yml  when you are running in local and prod according to the requirement.
