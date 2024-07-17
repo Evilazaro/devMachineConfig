@@ -4,19 +4,13 @@
     - title: "Getting Started"
       url: "docs/getting-started"
       children:
-        - title: Features
-          url: "docs/getting-started#getting-started"
-        - title: Development
-          url: "docs/getting-started#development"
-        - title: Customization
-          url: "docs/getting-started#customization"
-    - title: Versioning
-      url: "docs/versioning"
+        - title: Step 1
+          url: "docs/devMachineConfig/step1"
+        - title: Step 2
+          url: "docs/devMachineConfig/step1"
     - title: "About"
       url: "about"
-    - title: "News"
-      url: "news"
-- title: "Extras"
+- title: "Resources"
   url: "docs/extras"
   links:
     - title: Quizzes

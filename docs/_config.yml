@@ -14,13 +14,13 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Dev Machine Repo Docs
+title: Config Dev Machine Repository
 email: evilazaro@gmail.com
 author: Evilazaro Alves
 description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  This repository aims to streamline and expedite the onboarding process, 
+  ensuring that developers can start contributing to projects 
+  more quickly and efficiently.
 
 # Add your baseurl here (your repository) but DO NOT CHANGE THE LINE NUMBER without editing .circleci/circle_urls.sh
 baseurl: "/devMachineConfig" # the subpath of your site, e.g. /blog
