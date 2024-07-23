@@ -101,17 +101,19 @@ function restartComputer{
 
 switch ($step) {
     1 {
+        updateWingetPackages
         installUbuntu
         restartComputer
     }
     2 {
+        updateWingetPackages
         importWingetPackages
         restartComputer
     }
     3 {
-        InstallVSCodeExtensions
-        UpdateDotNetWorkloads
         updateWingetPackages
+        InstallVSCodeExtensions
+        UpdateDotNetWorkloads        
     }
     default {
         Write-Host "Invalid step number. Please provide a valid step number." -Level "ERROR"
