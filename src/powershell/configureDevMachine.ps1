@@ -127,16 +127,6 @@ function InstallWinGet {
         Write-Host "Microsoft.Winget.Client is already installed"
     }
 
-    # check if the Microsoft.WinGet.Configuration module is installed
-    if (!(Get-Module -ListAvailable -Name Microsoft.WinGet.Configuration)) {
-        Write-Host "Installing Microsoft.WinGet.Configuration"
-        Install-Module Microsoft.WinGet.Configuration -Scope $PsInstallScope
-        Write-Host "Done Installing Microsoft.WinGet.Configuration"
-    }
-    else {
-        Write-Host "Microsoft.WinGet.Configuration is already installed"
-    }
-
     Write-Host "Updating WinGet"
     try {
         Write-Host "Attempting to repair WinGet Package Manager"
