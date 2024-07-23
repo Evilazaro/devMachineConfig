@@ -74,7 +74,7 @@ function installUbuntu{
 function updateWingetPackages {
     try {
         Write-Host "Updating winget packages..."
-        winget upgrade --all
+        winget upgrade --all --accept-package-agreements --accept-source-agreements
         Write-Host "Packages have been updated successfully."
     }
     catch {
