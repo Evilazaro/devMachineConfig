@@ -64,6 +64,7 @@ function installUbuntu{
 
 }
 
+sudo winget update --all
 installUbuntu
 InstallVSCodeExtensions
 UpdateDotNetWorkloads
