@@ -81,7 +81,7 @@ function updateWingetPackages {
 
 function importWingetPackages {
     try {
-        Write-Host "Importing winget packages..."
+        Write-Host "Importing winget packages... Please have a sit and relax."
         winget import -i .\configDevMachine.json
         Write-Host "Packages have been imported successfully."
     }
