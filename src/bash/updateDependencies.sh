@@ -19,7 +19,8 @@ update_packages() {
 install_or_update_dotnet() {
   log_message "Installing or updating .NET SDK 8.0..."
   sudo apt-get update -y
-  sudo apt-get install -y wget apt-transport-https
+  sudo apt-get install -y --allow-remove-essential wget 
+  sudo apt-get install -y --allow-remove-essential apt-transport-https
 
   # Remove any existing Microsoft package repository
   sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
@@ -28,6 +29,7 @@ install_or_update_dotnet() {
   wget -q https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
   sudo dpkg -i packages-microsoft-prod.deb
   sudo apt-get update -y
+  echo "Unholding packages"
   sudo apt-get install -y dotnet-sdk-8.0
   log_message ".NET SDK 8.0 installation or update is complete."
 
@@ -57,6 +59,7 @@ main
 
 # Main function to coordinate the update process
 main() {
+  clear
   update_packages
   install_or_update_dotnet
   install_azure_cli
