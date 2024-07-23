@@ -74,6 +74,7 @@ function installUbuntu{
 function updateWingetPackages {
     try {
         Write-Host "Updating winget packages..."
+        winget update
         winget upgrade --all --accept-package-agreements --accept-source-agreements --source winget
         Write-Host "Packages have been updated successfully."
     }
@@ -102,7 +103,7 @@ function restartComputer{
 switch ($step) {
     1 {
         installUbuntu
-        winget update --id Microsoft.AppInstaller --source winget --accept-package-agreements --accept-source-agreements
+        updateWingetPackages
         restartComputer
     }
     2 {
