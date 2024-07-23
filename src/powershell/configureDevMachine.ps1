@@ -1,8 +1,10 @@
-Set-ExecutionPolicy Bypass -Scope Process -Force; 
-# Parameter help description
 param(
     [int]$step = 2
 )
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; 
+# Parameter help description
+
 
 function UpdateDotNetWorkloads {
     try {
