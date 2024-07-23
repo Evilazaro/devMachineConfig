@@ -103,13 +103,12 @@ switch ($step) {
     1 {
         updateWingetPackages
         installUbuntu
-        updateWingetPackages
         restartComputer
     }
     2 {
+        updateWingetPackages
         importWingetPackages
         restartComputer
-        updateWingetPackages
     }
     3 {
         InstallVSCodeExtensions
