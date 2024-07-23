@@ -102,6 +102,7 @@ function restartComputer{
 switch ($step) {
     1 {
         installUbuntu
+        winget update --id Microsoft.AppInstaller --source winget --accept-package-agreements --accept-source-agreements
         restartComputer
     }
     2 {
