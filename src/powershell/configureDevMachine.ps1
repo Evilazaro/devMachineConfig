@@ -103,6 +103,7 @@ switch ($step) {
     1 {
         updateWingetPackages
         installUbuntu
+        updateWingetPackages
         restartComputer
     }
     2 {
@@ -111,9 +112,9 @@ switch ($step) {
         updateWingetPackages
     }
     3 {
-        updateWingetPackages
         InstallVSCodeExtensions
-        UpdateDotNetWorkloads        
+        UpdateDotNetWorkloads   
+        updateWingetPackages     
     }
     default {
         Write-Host "Invalid step number. Please provide a valid step number." -Level "ERROR"
