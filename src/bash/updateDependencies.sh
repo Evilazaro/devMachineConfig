@@ -51,7 +51,6 @@ main() {
   update_packages
   install_or_update_dotnet
   install_azure_cli
-  install_vscode_extensions
 }
 
 # Execute the main function
