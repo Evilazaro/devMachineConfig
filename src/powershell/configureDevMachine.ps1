@@ -64,7 +64,18 @@ function installUbuntu{
 
 }
 
-winget update --all
+function updateWingetPackages {
+    try {
+        Write-Host "Updating winget packages..."
+        winget upgrade --all
+        Write-Host "Packages have been updated successfully."
+    }
+    catch {
+        Write-Host "Failed to update winget packages: $_"  -Level "ERROR"
+    }
+}
+
 installUbuntu
 InstallVSCodeExtensions
 UpdateDotNetWorkloads
+updateWingetPackages
