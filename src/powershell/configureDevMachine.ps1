@@ -101,12 +101,10 @@ function restartComputer{
 
 switch ($step) {
     1 {
-        updateWingetPackages
         installUbuntu
         restartComputer
     }
     2 {
-        updateWingetPackages
         importWingetPackages
         restartComputer
     }
