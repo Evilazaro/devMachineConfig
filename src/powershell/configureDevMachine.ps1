@@ -1,4 +1,8 @@
 Set-ExecutionPolicy Bypass -Scope Process -Force; 
+# Parameter help description
+param(
+    [int]$step = 2
+)
 
 function UpdateDotNetWorkloads {
     try {
@@ -75,7 +79,40 @@ function updateWingetPackages {
     }
 }
 
-installUbuntu
-InstallVSCodeExtensions
-UpdateDotNetWorkloads
-updateWingetPackages
+function importWingetPackages {
+    try {
+        Write-Host "Importing winget packages..."
+        winget import -i .\configDevMachine.json
+        Write-Host "Packages have been imported successfully."
+    }
+    catch {
+        Write-Host "Failed to import winget packages: $_"  -Level "ERROR"
+    }
+}
+
+function restartComputer{
+    Write-Host "Restarting the computer in 10 seconds..."
+    Start-Sleep -Seconds 10
+    Restart-Computer -Force
+}
+
+switch ($step) {
+    1 {
+        installUbuntu
+        restartComputer
+    }
+    2 {
+        importWingetPackages
+        restartComputer
+    }
+    3 {
+        InstallVSCodeExtensions
+        UpdateDotNetWorkloads
+        updateWingetPackages
+    }
+    default {
+        Write-Host "Invalid step number. Please provide a valid step number." -Level "ERROR"
+    }
+}
+
+
