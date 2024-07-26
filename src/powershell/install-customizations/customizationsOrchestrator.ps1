@@ -3,6 +3,8 @@ param(
     [int]$step = 1
 )
 
+Set-ExecutionPolicy Bypass -Scope Process -Force; 
+
 function executePowerShellScript {
     param(
         [Parameter(Mandatory=$true, HelpMessage="Please provide the script content.")]
@@ -15,21 +17,19 @@ function executePowerShellScript {
     Invoke-Expression $scriptContent.Content
 }
 
-Set-ExecutionPolicy Bypass -Scope Process -Force; 
-
 switch ($step) {
     1 {
-        .\\install-winget\installWinget.ps1
-        .\\install-wsl\installWSL.ps1     
+        ..\install-winget\installWinget.ps1
+        ..\install-wsl\installWsl.ps1     
     }
     2 {
-        .\\install-ubuntu\installUbuntu.ps1
-        .\\install-winget-packages\installWingetPackages.ps1        
+        ..\install-ubuntu\installUbuntu.ps1
+        ..\install-winget-packages\installWingetPackages.ps1        
     }
     3 {
-        .\\install-vs-extensions\installVSCodeExtensions.ps1
-        .\\update-dotnet-workloads\updateDotNetWorkloads.ps1
-        .\\update-winget-packages\updateWingetPackages.ps1
+        ..\install-vs-extensions\installVSCodeExtensions.ps1
+        ..\update-dotnet-workloads\updateDotNetWorkloads.ps1
+        ..\update-winget-packages\updateWingetPackages.ps1
     }
     default {
         Write-Host "Invalid step number. Please provide a valid step number." -Level "ERROR"
