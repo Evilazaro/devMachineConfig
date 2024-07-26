@@ -61,7 +61,7 @@ function installUbuntu{
         Write-Host "winget is installed. Proceeding with Ubuntu installation..."
 
         # Install Ubuntu
-        wsl --install -d Ubuntu
+        winget install -e --id 9PDXGNCFSCZV --source msstore --accept-package-agreements --accept-source-agreements --silent
 
         Write-Host "Ubuntu installation initiated."
     }
